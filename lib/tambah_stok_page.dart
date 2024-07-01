@@ -3,8 +3,6 @@ import 'package:dio/dio.dart';
 import 'models/stok.dart'; // Import model Stok
 
 class TambahStokPage extends StatefulWidget {
-  const TambahStokPage({super.key});
-
   @override
   _TambahStokPageState createState() => _TambahStokPageState();
 }
@@ -22,24 +20,32 @@ class _TambahStokPageState extends State<TambahStokPage> {
 
       // Buat objek Stok
       Stok stok = Stok(
+        id: '', // ID akan dihasilkan oleh server
         name: _nama,
         qty: _kuantitas,
         attr: _atribut,
         weight: _berat,
-        id: '',
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
       );
 
       // Endpoint API
       String apiUrl = 'https://api.kartel.dev/stocks';
 
       try {
-        // Mengirim POST request ke API menggunakan dio
+        // Logging data yang akan dikirim
+        print('Data yang dikirim: ${stok.toJson()}');
+
+        // Mengirim POST request ke API
         var response = await Dio().post(
           apiUrl,
           data: stok.toJson(),
           options: Options(
             headers: {
               'Content-Type': 'application/json',
+            },
+            validateStatus: (status) {
+              return status! < 500; // Tangani status kode di bawah 500
             },
           ),
         );
@@ -68,7 +74,7 @@ class _TambahStokPageState extends State<TambahStokPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Tambah Stok'),
+        title: Text('Tambah Stok'),
         backgroundColor: Colors.orange,
       ),
       body: Padding(
@@ -78,7 +84,7 @@ class _TambahStokPageState extends State<TambahStokPage> {
           child: Column(
             children: <Widget>[
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Nama'),
+                decoration: InputDecoration(labelText: 'Nama'),
                 onSaved: (value) {
                   _nama = value!;
                 },
@@ -90,7 +96,7 @@ class _TambahStokPageState extends State<TambahStokPage> {
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Kuantitas'),
+                decoration: InputDecoration(labelText: 'Kuantitas'),
                 keyboardType: TextInputType.number,
                 onSaved: (value) {
                   _kuantitas = int.parse(value!);
@@ -106,7 +112,7 @@ class _TambahStokPageState extends State<TambahStokPage> {
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Atribut'),
+                decoration: InputDecoration(labelText: 'Atribut'),
                 onSaved: (value) {
                   _atribut = value!;
                 },
@@ -118,8 +124,8 @@ class _TambahStokPageState extends State<TambahStokPage> {
                 },
               ),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Berat'),
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                decoration: InputDecoration(labelText: 'Berat'),
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onSaved: (value) {
                   _berat = double.parse(value!);
                 },
@@ -133,17 +139,17 @@ class _TambahStokPageState extends State<TambahStokPage> {
                   return null;
                 },
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  padding: EdgeInsets.symmetric(vertical: 20),
                 ),
                 onPressed: _submitForm,
-                child: const Text('Submit'),
+                child: Text('Submit'),
               ),
             ],
           ),

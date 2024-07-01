@@ -5,7 +5,7 @@ import 'models/stok.dart'; // Import model Stok
 class EditStokForm extends StatefulWidget {
   final Stok stok;
 
-  const EditStokForm({super.key, required this.stok});
+  EditStokForm({required this.stok});
 
   @override
   _EditStokFormState createState() => _EditStokFormState();
@@ -38,6 +38,8 @@ class _EditStokFormState extends State<EditStokForm> {
         qty: _kuantitas,
         attr: _atribut,
         weight: _berat,
+        createdAt: widget.stok.createdAt,
+        updatedAt: DateTime.now(),
       );
 
       // Endpoint API
@@ -90,7 +92,7 @@ class _EditStokFormState extends State<EditStokForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Stok'),
+        title: Text('Edit Stok'),
         backgroundColor: Colors.orange,
       ),
       body: Padding(
@@ -101,7 +103,7 @@ class _EditStokFormState extends State<EditStokForm> {
             children: <Widget>[
               TextFormField(
                 initialValue: _nama,
-                decoration: const InputDecoration(labelText: 'Nama'),
+                decoration: InputDecoration(labelText: 'Nama'),
                 onSaved: (value) {
                   _nama = value!;
                 },
@@ -114,7 +116,7 @@ class _EditStokFormState extends State<EditStokForm> {
               ),
               TextFormField(
                 initialValue: _kuantitas.toString(),
-                decoration: const InputDecoration(labelText: 'Kuantitas'),
+                decoration: InputDecoration(labelText: 'Kuantitas'),
                 keyboardType: TextInputType.number,
                 onSaved: (value) {
                   _kuantitas = int.parse(value!);
@@ -131,7 +133,7 @@ class _EditStokFormState extends State<EditStokForm> {
               ),
               TextFormField(
                 initialValue: _atribut,
-                decoration: const InputDecoration(labelText: 'Atribut'),
+                decoration: InputDecoration(labelText: 'Atribut'),
                 onSaved: (value) {
                   _atribut = value!;
                 },
@@ -144,8 +146,8 @@ class _EditStokFormState extends State<EditStokForm> {
               ),
               TextFormField(
                 initialValue: _berat.toString(),
-                decoration: const InputDecoration(labelText: 'Berat'),
-                keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                decoration: InputDecoration(labelText: 'Berat'),
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onSaved: (value) {
                   _berat = double.parse(value!);
                 },
@@ -159,17 +161,17 @@ class _EditStokFormState extends State<EditStokForm> {
                   return null;
                 },
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  padding: EdgeInsets.symmetric(vertical: 20),
                 ),
                 onPressed: _submitForm,
-                child: const Text('Submit'),
+                child: Text('Submit'),
               ),
             ],
           ),

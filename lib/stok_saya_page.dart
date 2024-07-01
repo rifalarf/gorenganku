@@ -30,7 +30,7 @@ class StokSayaPage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const TambahStokPage()),
+                  MaterialPageRoute(builder: (context) => TambahStokPage()),
                 );
               },
               child: const Text('Tambah Stok'),
@@ -47,7 +47,7 @@ class StokSayaPage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const LihatStokPage()),
+                  MaterialPageRoute(builder: (context) => LihatStokPage()),
                 );
               },
               child: const Text('Lihat Stok'),

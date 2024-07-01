@@ -3,8 +3,6 @@ import 'package:dio/dio.dart';
 import 'models/stok.dart'; // Import model Stok
 
 class LihatStokPage extends StatefulWidget {
-  const LihatStokPage({super.key});
-
   @override
   _LihatStokPageState createState() => _LihatStokPageState();
 }
@@ -37,18 +35,18 @@ class _LihatStokPageState extends State<LihatStokPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lihat Stok'),
+        title: Text('Lihat Stok'),
         backgroundColor: Colors.orange,
       ),
       body: FutureBuilder<List<Stok>>(
         future: _stokList,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text('Tidak ada stok tersedia'));
+            return Center(child: Text('Tidak ada stok tersedia'));
           } else {
             return ListView.builder(
               itemCount: snapshot.data!.length,
@@ -56,8 +54,15 @@ class _LihatStokPageState extends State<LihatStokPage> {
                 Stok stok = snapshot.data![index];
                 return ListTile(
                   title: Text(stok.name),
-                  subtitle: Text(
-                      'Kuantitas: ${stok.qty}, Atribut: ${stok.attr}, Berat: ${stok.weight}'),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                          'Kuantitas: ${stok.qty}\nAtribut: ${stok.attr}\nBerat: ${stok.weight}\nPembuat: ${stok.issuer}\n'),
+                      Text('Created At: ${stok.createdAt}'),
+                      Text('Updated At: ${stok.updatedAt}'),
+                    ],
+                  ),
                 );
               },
             );

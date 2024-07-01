@@ -4,6 +4,9 @@ class Stok {
   int qty;
   String attr;
   double weight;
+  DateTime createdAt;
+  DateTime updatedAt;
+  String issuer;
 
   Stok({
     required this.id,
@@ -11,6 +14,9 @@ class Stok {
     required this.qty,
     required this.attr,
     required this.weight,
+    required this.createdAt,
+    required this.updatedAt,
+    this.issuer = '',
   });
 
   factory Stok.fromJson(Map<String, dynamic> json) {
@@ -20,6 +26,9 @@ class Stok {
       qty: (json['qty'] as num).toInt(), // Konversi ke int
       attr: json['attr'],
       weight: (json['weight'] as num).toDouble(), // Konversi ke double
+      createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt']),
+      updatedAt: DateTime.fromMillisecondsSinceEpoch(json['updatedAt']),
+      issuer: json['issuer'],
     );
   }
 
@@ -29,6 +38,7 @@ class Stok {
       'qty': qty,
       'attr': attr,
       'weight': weight,
+      'issuer': issuer,
     };
   }
 }
