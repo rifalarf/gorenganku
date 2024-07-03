@@ -23,9 +23,9 @@ class Stok {
     return Stok(
       id: json['id'],
       name: json['name'],
-      qty: (json['qty'] as num).toInt(), // Konversi ke int
+      qty: (json['qty'] as num).toInt(),
       attr: json['attr'],
-      weight: (json['weight'] as num).toDouble(), // Konversi ke double
+      weight: (json['weight'] as num).toDouble(),
       createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt']),
       updatedAt: DateTime.fromMillisecondsSinceEpoch(json['updatedAt']),
       issuer: json['issuer'],

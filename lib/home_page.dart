@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'stok_saya_page.dart'; // Import StokSayaPage
+import 'stok_saya_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -8,8 +8,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text('Home Page')), // Title di tengah
-        backgroundColor: Colors.orange, // Warna AppBar
+        title: const Center(child: Text('Home Page')),
+        backgroundColor: Colors.orange,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -20,9 +20,9 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange, // Warna tombol
+                backgroundColor: Colors.orange,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15), // Radius sudut
+                  borderRadius: BorderRadius.circular(15),
                 ),
               ),
               onPressed: () {
@@ -35,14 +35,12 @@ class HomePage extends StatelessWidget {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orange, // Warna tombol
+                backgroundColor: Colors.orange,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15), // Radius sudut
+                  borderRadius: BorderRadius.circular(15),
                 ),
               ),
-              onPressed: () {
-                // Aksi untuk tombol "Tentang Aplikasi"
-              },
+              onPressed: () {},
               child: const Text('Tentang Aplikasi'),
             ),
           ],

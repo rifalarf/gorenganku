@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'models/stok.dart'; // Import model Stok
-import 'edit_stok_form.dart'; // Import EditStokForm
+import 'models/stok.dart';
+import 'edit_stok_form.dart';
 
 class EditStokPage extends StatefulWidget {
   const EditStokPage({super.key});
@@ -39,7 +39,6 @@ class _EditStokPageState extends State<EditStokPage> {
     try {
       var response = await Dio().delete(apiUrl);
       if (response.statusCode == 200 || response.statusCode == 204) {
-        // Jika berhasil, refresh daftar stok
         setState(() {
           _stokList = _fetchStok();
         });

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'models/stok.dart'; // Import model Stok
+import 'models/stok.dart';
 
 class TambahStokPage extends StatefulWidget {
   @override
@@ -18,9 +18,8 @@ class _TambahStokPageState extends State<TambahStokPage> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      // Buat objek Stok
       Stok stok = Stok(
-        id: '', // ID akan dihasilkan oleh server
+        id: '',
         name: _nama,
         qty: _kuantitas,
         attr: _atribut,
@@ -29,14 +28,11 @@ class _TambahStokPageState extends State<TambahStokPage> {
         updatedAt: DateTime.now(),
       );
 
-      // Endpoint API
       String apiUrl = 'https://api.kartel.dev/stocks';
 
       try {
-        // Logging data yang akan dikirim
         print('Data yang dikirim: ${stok.toJson()}');
 
-        // Mengirim POST request ke API
         var response = await Dio().post(
           apiUrl,
           data: stok.toJson(),
@@ -45,16 +41,14 @@ class _TambahStokPageState extends State<TambahStokPage> {
               'Content-Type': 'application/json',
             },
             validateStatus: (status) {
-              return status! < 500; // Tangani status kode di bawah 500
+              return status! < 500;
             },
           ),
         );
 
         if (response.statusCode == 200 || response.statusCode == 201) {
-          // Jika berhasil, kembali ke halaman Stok Saya
           Navigator.pop(context);
         } else {
-          // Jika gagal, tampilkan pesan error
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
                 content:
@@ -62,7 +56,6 @@ class _TambahStokPageState extends State<TambahStokPage> {
           );
         }
       } catch (e) {
-        // Jika terjadi error, tampilkan pesan error
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Terjadi kesalahan: $e')),
         );

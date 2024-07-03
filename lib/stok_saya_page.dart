@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'tambah_stok_page.dart'; // Import TambahStokPage
-import 'lihat_stok_page.dart'; // Import LihatStokPage
-import 'edit_stok_page.dart'; // Import EditStokPage
+import 'tambah_stok_page.dart';
+import 'lihat_stok_page.dart';
+import 'edit_stok_page.dart';
 
 class StokSayaPage extends StatelessWidget {
   const StokSayaPage({super.key});

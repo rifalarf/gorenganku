@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'models/stok.dart'; // Import model Stok
+import 'models/stok.dart';
 
 class EditStokForm extends StatefulWidget {
   final Stok stok;
@@ -31,7 +31,6 @@ class _EditStokFormState extends State<EditStokForm> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      // Data yang akan dikirim ke API
       Stok updatedStok = Stok(
         id: widget.stok.id,
         name: _nama,
@@ -42,14 +41,11 @@ class _EditStokFormState extends State<EditStokForm> {
         updatedAt: DateTime.now(),
       );
 
-      // Endpoint API
       String apiUrl = 'https://api.kartel.dev/stocks/${widget.stok.id}';
 
       try {
-        // Logging data yang akan dikirim
         print('Data yang dikirim: ${updatedStok.toJson()}');
 
-        // Mengirim PUT request ke API
         var response = await Dio().put(
           apiUrl,
           data: updatedStok.toJson(),
@@ -58,21 +54,18 @@ class _EditStokFormState extends State<EditStokForm> {
               'Content-Type': 'application/json',
             },
             validateStatus: (status) {
-              return status! < 500; // Tangani status kode di bawah 500
+              return status! < 500;
             },
           ),
         );
 
         if (response.statusCode == 200 || response.statusCode == 204) {
-          // Jika berhasil, kembali ke halaman sebelumnya
           Navigator.pop(context, true);
         } else if (response.statusCode == 422) {
-          // Jika ada kesalahan validasi, tampilkan pesan error
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Gagal memperbarui stok: ${response.data}')),
           );
         } else {
-          // Jika gagal, tampilkan pesan error
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
                 content:
@@ -80,7 +73,6 @@ class _EditStokFormState extends State<EditStokForm> {
           );
         }
       } catch (e) {
-        // Jika terjadi error, tampilkan pesan error
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Terjadi kesalahan: $e')),
         );

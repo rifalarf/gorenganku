@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
-import 'models/stok.dart'; // Import model Stok
+import 'models/stok.dart';
 
 class LihatStokPage extends StatefulWidget {
   @override
